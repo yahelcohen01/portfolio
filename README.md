@@ -1,38 +1,61 @@
-# Minimalist Light Portfolio Template
+# Yahel Cohen — Portfolio
 
-[Demo](https://www.devportfoliotemplates.com/portfolio-templates/minimalist-light)
+Welcome to my portfolio website! This is the official repository for my personal site, built to showcase my skills, projects, and experience.
 
-## Getting Started
+---
 
-You have two options to get started with this template:
+## Table of Contents
 
-### Option 1: Using Git Sparse Checkout
+1. [About](#about)
+2. [Demo](#demo)
+3. [Tech Stack](#tech-stack)
+4. [Getting Started](#getting-started)
+   - Installation
+   - Development
+   - Production Build
+   - Deployment
+5. [Customization](#customization)
+6. [Project Structure](#project-structure)
+7. [Troubleshooting & Tips](#troubleshooting--tips)
+8. [Contact](#contact)
+9. [License](#license)
+10. [Support](#support)
 
-If you want to clone only this specific template:
+---
+
+## 1. About
+
+This portfolio is a modern, minimalist, and responsive website built to highlight my professional journey, key projects, and areas of expertise.
+
+---
+
+## 2. Demo
+
+**Live Site**:  
+Explore the live version here: [www.yahelcohen.com](https://www.yahelcohen.com)
+
+---
+
+## 3. Tech Stack
+
+- **Framework**: Next.js (React)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **Bundling & Configuration**: ESLint, PostCSS
+- **Deployment**: Vercel (leveraging its seamless integration with Next.js)
+
+---
+
+## 4. Getting Started
+
+### Installation
 
 ```bash
-git clone --no-checkout https://github.com/devportfoliotemplates/devportfoliotemplates.git
-cd devportfoliotemplates
-git sparse-checkout init --cone
-git sparse-checkout set minimalist-light-portfolio-template
-git checkout
-```
+# Clone the repo
+git clone https://github.com/yahelcohen01/portfolio.git
+cd portfolio
 
-### Option 2: Direct Download
-
-You can download this template as a ZIP file:
-
-1. Visit [download-directory.github.io](https://download-directory.github.io/)
-2. Paste the URL of this portfolio folder: `https://github.com/devportfoliotemplates/devportfoliotemplates/tree/main/minimalist-light-portfolio-template`
-3. Download and extract the ZIP file
-
-### Running the Template
-
-Once you have the template:
-
-1. Install dependencies:
-
-```bash
+# Install dependencies
 npm install
 # or
 yarn install
@@ -40,101 +63,92 @@ yarn install
 pnpm install
 ```
 
-2. Run the development server:
+### Development
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
 ```
 
-3. Open [http://localhost:3000](http://localhost:3000) in your browser to see the portfolio.
+The site should now be available at [http://localhost:3000](http://localhost:3000)
 
-## Customization
+### Production Build
 
-### Personal Information
+```bash
+npm run build
+npm start
+```
 
-1. Update metadata in `app/layout.tsx`:
+### Deployment
 
-   - Site title
-   - Description
-   - Open Graph metadata
-   - Favicon
+Deploy your website via Vercel for production-ready hosting:
 
-2. Modify content in `app/page.tsx`:
+1. Push your code to a GitHub repository.
+2. Log in to [Vercel](https://vercel.com) and import the project.
+3. Vercel auto-detects Next.js; click **Deploy**, and your live site will be up shortly!
+4. (Optional) Add a custom domain via Vercel’s project settings.
 
-   - Hero section
-   - About section
-   - Projects
-   - Contact information
+---
 
-3. Replace assets:
-   - Replace images in the `public` directory
-   - Update social media icons
-   - Modify logo if needed
+## 5. Customization
 
-### Styling
+- **Site Metadata**: Located under `app/layout.tsx` — modify title, description, Open Graph metadata, and favicon.
+- **Main Content**: Found in `app/page.tsx` — customize the hero section, “About Me” area, project showcases, and contact details.
+- **Assets**: Swap or update images in the `public` folder as needed (photos, icons, logos).
+- **Styling**:
+  - Tailwind configurations: `app/globals.css` (colors, themes, fonts, breakpoints)
 
-1. Colors and Theme:
+---
 
-   - Customize colors in `tailwind.config.js`
-   - Modify theme variables in `app/globals.css`
+## 6. Project Structure
 
-2. Typography:
+```
+├── app/                  # Next.js app directory
+│   ├── layout.tsx        # Layout & global metadata
+│   ├── page.tsx          # Main page content
+│   └── globals.css       # Global styles
+├── public/               # Static assets (images, icons)
+├── .gitignore
+├── eslintrc.config.mjs   # Linting rules
+├── next.config.ts        # Next.js config
+├── package.json          # Project scripts & dependencies
+├── tsconfig.json         # TypeScript configuration
+├── postcss.config.mjs    # PostCSS plugins (Tailwind)
+└── README.md             # You're here!
+```
 
-   - Update font families in `tailwind.config.js`
-   - Modify text sizes and weights
+---
 
-3. Layout:
-   - Adjust spacing and padding in component files
-   - Modify responsive breakpoints in `tailwind.config.js`
+## 7. Troubleshooting & Tips
 
-## Troubleshooting
+| Issue                            | Solution                                                                                                                      |
+| -------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| **Build fails**                  | Ensure all dependencies are installed; try clearing `node_modules` and `.next` folders, then reinstall and rebuild.           |
+| **Tailwind styles not applying** | Run `npm run build`; check for conflicting CSS in `globals.css`.                                                              |
+| **Images not loading**           | Verify they're in the `public` directory, ensure valid formats (JPG, PNG, WebP), and correctly referenced in your components. |
 
-### Common Issues
+---
 
-1. **Build Errors**
+## 8. Contact
 
-   - Ensure all dependencies are installed
-   - Clear `.next` folder and node_modules
-   - Run `npm install` again
+I’d love to hear from you! Reach out via:
 
-2. **Styling Issues**
+- **Email**: [yahelcohen01@gmail.com](mailto:yahelcohen01@gmail.com)
+- **Website**: [www.yahelcohen.com](https://www.yahelcohen.com)
+- **[LinkedIn](https://www.linkedin.com/in/yahelcohen/) | [GitHub](https://github.com/yahelcohen01)**
 
-   - Run `npm run build` to ensure TailwindCSS classes are generated
-   - Check for conflicting styles in `globals.css`
+---
 
-3. **Image Loading**
-   - Verify images are in the correct format (PNG, JPG, WebP)
-   - Check image paths are correct
-   - Ensure images are in the `public` directory
+## 9. License
 
-## Deployment
+Distributed under the [MIT License](LICENSE). Feel free to use, modify, or adapt as needed.
 
-Follow these steps to deploy your portfolio for free using GitHub and Vercel:
+---
 
-1. Create a new GitHub repository
-
-2. Push your portfolio to GitHub
-
-3. Deploy with Vercel:
-   - Go to [Vercel](https://vercel.com)
-   - Sign up or log in with GitHub
-   - Click "New Project"
-   - Import your GitHub repository
-   - Vercel will automatically detect Next.js
-   - Click "Deploy"
-
-Your portfolio will be live in minutes with a free Vercel domain (e.g., `your-repo.vercel.app`). You can later add a custom domain in your Vercel project settings.
-
-## Support
-
-If you find these templates helpful, please consider:
+## 10. Support
 
 - Starring the repository ⭐
 - Sharing with other developers
-- [Buying me a coffee](https://www.buymeacoffee.com/andreiancu) ☕
 
-For issues and feature requests, please [create an issue](https://github.com/devportfoliotemplates/devportfoliotemplates/issues).
+Built on top of this [template](https://www.devportfoliotemplates.com/portfolio-templates/minimalist-light)
+
+---
