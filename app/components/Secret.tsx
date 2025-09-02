@@ -1,7 +1,9 @@
 import { useRef } from "react";
 import Link from "next/link";
+import { useTheme } from "@/app/context";
 
 export const Secret = () => {
+  const { isDark } = useTheme();
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const handleMouseEnter = () => {
@@ -18,14 +20,25 @@ export const Secret = () => {
       onMouseLeave={handleMouseLeave}
     >
       <Link href="/secret">
-        <video
-          ref={videoRef}
-          src="/star-wars.mp4"
-          className="w-full h-full object-cover"
-          loop
-          muted
-          playsInline
-        />
+        {isDark ? (
+          <video
+            ref={videoRef}
+            src="/xwing.mp4"
+            className="w-full h-full object-cover"
+            loop
+            muted
+            playsInline
+          />
+        ) : (
+          <video
+            ref={videoRef}
+            src="/star-wars.mp4"
+            className="w-full h-full object-cover"
+            loop
+            muted
+            playsInline
+          />
+        )}
       </Link>
     </div>
   );

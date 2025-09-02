@@ -1,26 +1,34 @@
 "use client";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { StarfieldBackground } from "@/app/components/StarFieldBackground";
+import { StarWarsCrawl } from "@/app/components/StarWarsCrawl";
+import { ToggleMusicButton } from "@/app/components/ToggleMusicButton";
+import Link from "next/link";
 
-export default function ParallaxOverlap() {
-  const { scrollYProgress } = useScroll();
-  const ySlow = useTransform(scrollYProgress, [0, 1], ["0%", "-20%"]);
-  const yFast = useTransform(scrollYProgress, [0, 1], ["0%", "-50%"]);
-
+export default function StarWarsSecretPage() {
   return (
-    <div className="relative h-[200vh] overflow-hidden">
-      <motion.img
-        src="/layer1.jpg"
-        className="absolute top-0 left-0 w-full h-screen object-cover"
-        style={{ y: ySlow }}
-      />
-      <motion.img
-        src="/layer2.png"
-        className="absolute top-0 left-0 w-full h-screen object-cover"
-        style={{ y: yFast }}
-      />
-      <div className="relative z-10 h-screen flex items-center justify-center text-white text-3xl">
-        Your Content Here
-      </div>
+    <div className="relative">
+      <Link
+        href="/"
+        className="flex items-center hover:underline transition absolute mt-4 left-4 z-20 text-white"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="w-4 h-4 text-white"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <polyline points="15 18 9 12 15 6" />
+        </svg>
+        Back to Home
+      </Link>
+      <ToggleMusicButton />
+      <StarfieldBackground>
+        <StarWarsCrawl />
+      </StarfieldBackground>
     </div>
   );
 }

@@ -1,31 +1,7 @@
-import { useState, useEffect } from "react";
+import { useTheme } from "@/app/context";
 
 export function ToggleThemeButton() {
-  const [darkMode, setDarkMode] = useState(false);
-
-  // Load theme from localStorage or system preference
-  useEffect(() => {
-    if (
-      localStorage.theme === "dark" ||
-      (!("theme" in localStorage) &&
-        window.matchMedia("(prefers-color-scheme: dark)").matches)
-    ) {
-      setDarkMode(true);
-      document.documentElement.classList.add("dark");
-    }
-  }, []);
-
-  // Toggle dark mode
-  const toggleTheme = () => {
-    if (darkMode) {
-      document.documentElement.classList.remove("dark");
-      localStorage.theme = "light";
-    } else {
-      document.documentElement.classList.add("dark");
-      localStorage.theme = "dark";
-    }
-    setDarkMode(!darkMode);
-  };
+  const { isDark, toggleTheme } = useTheme();
 
   return (
     <button
@@ -36,7 +12,7 @@ export function ToggleThemeButton() {
       <svg
         xmlns="http://www.w3.org/2000/svg"
         className={`absolute h-6 w-6 text-gray-700 transition-transform duration-500 dark:text-gray-200 ${
-          darkMode ? "scale-0 rotate-180" : "scale-100 rotate-0"
+          isDark ? "scale-0 rotate-180" : "scale-100 rotate-0"
         }`}
         viewBox="0 0 24 24"
         fill="currentColor"
@@ -52,7 +28,7 @@ export function ToggleThemeButton() {
       <svg
         xmlns="http://www.w3.org/2000/svg"
         className={`absolute h-6 w-6 text-yellow-500 transition-transform duration-500 ${
-          darkMode ? "scale-100 rotate-0" : "scale-0 -rotate-180"
+          isDark ? "scale-100 rotate-0" : "scale-0 -rotate-180"
         }`}
         viewBox="0 0 24 24"
         fill="currentColor"
