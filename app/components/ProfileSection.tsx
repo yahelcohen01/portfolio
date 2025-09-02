@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export const ProfileSection = () => {
   return (
-    <div className="w-full pb-16 md:py-0 bg-primary px-6 pt-10 ">
+    <div className="w-full pb-16 md:py-0 px-6 pt-10 ">
       <div className="space-y-8 text-center">
         <div className="relative w-28 md:w-40 h-28 md:h-40 mx-auto">
           <div className="relative w-full h-full rounded-full overflow-hidden ring-2 ring-gray-200">
@@ -18,14 +18,12 @@ export const ProfileSection = () => {
         </div>
 
         <div className="space-y-3">
-          <h1 className="text-2xl md:text-3xl font-bold text-gray-900">
+          <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-100">
             Yahel Cohen
           </h1>
-          <h2 className="text-lg md:text-xl text-gray-600">
-            Software Engineer
-          </h2>
+          <h2 className="text-lg md:text-xl">Software Engineer</h2>
           <div className="h-px w-16 bg-gray-300 mx-auto my-4" />
-          <p className="text-sm md:text-base text-gray-600 max-w-xs mx-auto leading-relaxed">
+          <p className="text-sm md:text-base max-w-xs mx-auto leading-relaxed">
             3+ years building scalable systems and developing products
           </p>
         </div>
@@ -34,7 +32,7 @@ export const ProfileSection = () => {
           {/* Contact Info */}
           <div className="flex items-center justify-center space-x-2">
             <svg
-              className="w-4 h-4 text-gray-600"
+              className="w-4 h-4"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -44,7 +42,7 @@ export const ProfileSection = () => {
             </svg>
             <a
               href="mailto:yahelcohen01@gmail.com"
-              className="text-sm text-gray-600 hover:text-gray-900"
+              className="text-sm hover:text-gray-900 dark:hover:text-gray-100"
             >
               yahelcohen01@gmail.com
             </a>
@@ -52,34 +50,37 @@ export const ProfileSection = () => {
 
           <div className="flex items-center justify-center space-x-2">
             <svg
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
               fill="none"
-              transform="rotate(90)"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-labelledby="title"
+              className="w-4 h-4"
             >
-              <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
-              <g
-                id="SVGRepo_tracerCarrier"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                stroke="#CCCCCC"
-                strokeWidth="0.048"
-              ></g>
-              <g id="SVGRepo_iconCarrier">
-                <path
-                  d="M21 5.5C21 14.0604 14.0604 21 5.5 21C5.11378 21 4.73086 20.9859 4.35172 20.9581C3.91662 20.9262 3.69906 20.9103 3.50103 20.7963C3.33701 20.7019 3.18146 20.5345 3.09925 20.364C3 20.1582 3 19.9181 3 19.438V16.6207C3 16.2169 3 16.015 3.06645 15.842C3.12515 15.6891 3.22049 15.553 3.3441 15.4456C3.48403 15.324 3.67376 15.255 4.05321 15.117L7.26005 13.9509C7.70153 13.7904 7.92227 13.7101 8.1317 13.7237C8.31637 13.7357 8.49408 13.7988 8.64506 13.9058C8.81628 14.0271 8.93713 14.2285 9.17882 14.6314L10 16C12.6499 14.7999 14.7981 12.6489 16 10L14.6314 9.17882C14.2285 8.93713 14.0271 8.81628 13.9058 8.64506C13.7988 8.49408 13.7357 8.31637 13.7237 8.1317C13.7101 7.92227 13.7904 7.70153 13.9509 7.26005L13.9509 7.26005L15.117 4.05321C15.255 3.67376 15.324 3.48403 15.4456 3.3441C15.553 3.22049 15.6891 3.12515 15.842 3.06645C16.015 3 16.2169 3 16.6207 3H19.438C19.9181 3 20.1582 3 20.364 3.09925C20.5345 3.18146 20.7019 3.33701 20.7963 3.50103C20.9103 3.69907 20.9262 3.91662 20.9581 4.35173C20.9859 4.73086 21 5.11378 21 5.5Z"
-                  stroke="#000000"
-                  strokeWidth="1.44"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                ></path>
-              </g>
+              <path
+                d="M22 16.92v3a2 2 0 0 1-2.18 2 
+           19.79 19.79 0 0 1-8.63-3.07 
+           19.5 19.5 0 0 1-6-6 
+           19.79 19.79 0 0 1-3.07-8.63 
+           A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 
+           12.35 12.35 0 0 0 .7 2.81 
+           a2 2 0 0 1-.45 2.11l-1.27 1.27 
+           a16 16 0 0 0 6 6l1.27-1.27 
+           a2 2 0 0 1 2.11-.45 
+           12.35 12.35 0 0 0 2.81.7 
+           A2 2 0 0 1 22 16.92z"
+              />
             </svg>
+
             <a
               href="tel:+972503311372"
               rel="noopener noreferrer"
-              className="text-sm text-gray-600 hover:text-gray-900"
+              className="text-sm hover:text-gray-900 dark:hover:text-gray-100"
             >
               +972503311372
             </a>
@@ -87,7 +88,7 @@ export const ProfileSection = () => {
 
           <div className="flex items-center justify-center space-x-2">
             <svg
-              className="w-4 h-4 text-gray-600"
+              className="w-4 h-4"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -96,7 +97,7 @@ export const ProfileSection = () => {
               <path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
               <path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
             </svg>
-            <span className="text-sm text-gray-600">Tel Aviv, Israel</span>
+            <span className="text-sm">Tel Aviv, Israel</span>
           </div>
 
           {/* Social Links */}
@@ -105,7 +106,7 @@ export const ProfileSection = () => {
               href="https://github.com/yahelcohen01"
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2 text-gray-600 hover:text-black"
+              className="p-2 hover:text-black"
             >
               <svg
                 viewBox="0 0 24 24"
@@ -120,7 +121,7 @@ export const ProfileSection = () => {
               href="https://linkedin.com/in/yahelcohen"
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2 text-gray-600 hover:text-blue-600"
+              className="p-2 hover:text-blue-600"
             >
               <svg
                 viewBox="0 0 24 24"
@@ -139,7 +140,7 @@ export const ProfileSection = () => {
               href="/yahel-cohen--resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2 text-gray-600 hover:text-black hover:underline"
+              className="p-2 dark:hover:text-gray-100 hover:text-black hover:underline"
             >
               Download Resume
             </a>

@@ -23,10 +23,10 @@ export const ExperienceSection = () => {
   ];
 
   return (
-    <div className="py-6 bg-primary px-6">
+    <div className="py-6 px-6">
       <div className="space-y-4 max-w-2xl mx-auto">
         <div>
-          <h3 className="text-lg font-semibold text-gray-900 text-center md:text-left">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 text-center md:text-left">
             Experience
           </h3>
           <div className="h-px w-full bg-gray-300 mt-2" />
@@ -40,15 +40,15 @@ export const ExperienceSection = () => {
 
                 <div className="space-y-1">
                   <div className="flex flex-col md:flex-row md:items-center md:justify-between">
-                    <h4 className="text-md font-medium text-gray-900">
+                    <h4 className="text-md font-medium text-gray-900 dark:text-gray-100">
                       {exp.role}
                     </h4>
-                    <span className="text-sm text-gray-500">{exp.period}</span>
+                    <span className="text-sm text-gray-500 dark:text-gray-100">
+                      {exp.period}
+                    </span>
                   </div>
-                  <p className="text-sm font-medium text-gray-600">
-                    {exp.company}
-                  </p>
-                  <ul className="text-sm text-gray-600 leading-relaxed list-disc list-inside">
+                  <p className="text-sm font-medium">{exp.company}</p>
+                  <ul className="text-sm leading-relaxed list-disc list-inside">
                     {exp.highlights.map((highlight, index) => (
                       <li key={index} className="flex">
                         <span className="mr-2 items-start">•</span>

@@ -1,8 +1,22 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   --color-primary: #fff;
+  --text-primary: var(--color-gray-600);
   --color-foreground: var(--foreground);
+}
+
+.dark {
+  --color-primary: var(--color-stone-800);
+  --text-primary: var(--color-gray-300);
+  --color-foreground: var(--foreground);
+}
+
+:root {
+  background-color: var(--color-primary);
+  color: var(--text-primary);
 }
 
 /*
@@ -21,20 +35,4 @@
   ::file-selector-button {
     border-color: var(--color-gray-200, currentcolor);
   }
-}
-
-/* AT-AT Hover Animation */
-.at-at-container {
-  display: inline-block;
-  cursor: pointer;
-}
-
-.at-at-gif {
-  animation-play-state: paused;
-  transition: transform 0.3s ease;
-}
-
-.at-at-container:hover .at-at-gif {
-  animation-play-state: running;
-  transform: scale(1.1);
 }

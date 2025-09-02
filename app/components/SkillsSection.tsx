@@ -92,10 +92,10 @@ export const SkillsSection = () => {
   ];
 
   return (
-    <div className="py-6 bg-primary px-6">
+    <div className="py-6 px-6">
       <div className="space-y-4 max-w-2xl mx-auto">
         <div>
-          <h3 className="text-lg font-semibold text-gray-900 text-center md:text-left">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 text-center md:text-left">
             Core Skills
           </h3>
           <div className="h-px w-full bg-gray-300 mt-2" />
@@ -106,9 +106,7 @@ export const SkillsSection = () => {
             <div key={skillGroup.category}>
               <div className="flex items-center space-x-2 mb-2">
                 {skillGroup.icon}
-                <h4 className="text-sm font-medium text-gray-600">
-                  {skillGroup.category}
-                </h4>
+                <h4 className="text-sm font-medium">{skillGroup.category}</h4>
               </div>
               <div className="flex flex-wrap gap-1.5">
                 {skillGroup.items.map((skill) => (
