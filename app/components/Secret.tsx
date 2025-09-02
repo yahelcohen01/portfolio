@@ -28,6 +28,7 @@ export const Secret = () => {
             loop
             muted
             playsInline
+            autoPlay
           />
         ) : (
           <video
@@ -37,6 +38,7 @@ export const Secret = () => {
             loop
             muted
             playsInline
+            autoPlay
           />
         )}
       </Link>

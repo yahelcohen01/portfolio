@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useState, useRef } from "react";
+import { useMedia } from "react-use";
 
 const CRAWL_TEXT = `A long time ago in a galaxy far,
 far away....
@@ -29,6 +30,7 @@ freedom to the galaxy....`;
 export const StarWarsCrawl = () => {
   const [scrollPosition, setScrollPosition] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
+  const isMobile = useMedia("(max-width: 768px)");
   const maxScroll = 4000; // Maximum scroll distance
 
   // Handle scroll events
@@ -36,7 +38,7 @@ export const StarWarsCrawl = () => {
     const handleWheel = (e: WheelEvent) => {
       e.preventDefault();
       setScrollPosition((prev) => {
-        const newPosition = prev + e.deltaY * 0.5;
+        const newPosition = prev + e.deltaY * (isMobile ? 1.5 : 0.5); // Adjust scroll speed
         return Math.max(0, Math.min(maxScroll, newPosition));
       });
     };
@@ -58,7 +60,7 @@ export const StarWarsCrawl = () => {
       const deltaY = startY - touch.clientY;
 
       setScrollPosition((prev) => {
-        const newPosition = prev + deltaY * 0.02;
+        const newPosition = prev + deltaY * (isMobile ? 1.5 : 0.5);
         return Math.max(0, Math.min(maxScroll, newPosition));
       });
 
@@ -128,10 +130,10 @@ export const StarWarsCrawl = () => {
           }}
         >
           <img src="/logo.png" alt="Star Wars Logo" className="w-1/2" />
-          <p className="text-yellow-400 text-lg">
-            Im a big fan of Star Wars. This is a tribute page.
+          <p className="text-yellow-400 text-sm md:text-lg flex justify-center">
+            Im a big fan of Star Wars.
           </p>
-          <p className="text-yellow-400 text-lg">
+          <p className="text-yellow-400 text-sm md:text-lg flex justify-self-center content-center">
             This is a tribute page. Keep scrolling!
           </p>
         </div>
