@@ -1,7 +1,7 @@
 "use client";
-import { StarfieldBackground } from "@/app/components/StarFieldBackground";
-import { StarWarsCrawl } from "@/app/components/StarWarsCrawl";
-import { ToggleMusicButton } from "@/app/components/ToggleMusicButton";
+import { StarfieldBackground } from "./components/StarFieldBackground";
+import { StarWarsCrawl } from "./components/StarWarsCrawl";
+import { ToggleMusicButton } from "./components/ToggleMusicButton";
 import Link from "next/link";
 
 export default function StarWarsSecretPage() {

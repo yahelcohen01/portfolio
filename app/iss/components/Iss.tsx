@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
-import { useGLTF, Html, Line } from "@react-three/drei";
+import { useGLTF } from "@react-three/drei";
 import * as satellite from "satellite.js";
 import * as THREE from "three";
 import { useIssTle } from "@/app/hooks/useIssTle";
@@ -10,6 +10,19 @@ interface IssProps {
   earthSceneRadius?: number; // scene units (your Earth sphere radius, default 2)
   orbitWindowMinutes?: number; // how many minutes ahead to draw the path
   orbitSampleSeconds?: number; // sample step in seconds
+  setIssInfo: React.Dispatch<
+    React.SetStateAction<{
+      lat: number;
+      lon: number;
+      altKm: number;
+      speedKmh: number;
+      positionKm: {
+        x: number;
+        y: number;
+        z: number;
+      };
+    }>
+  >;
 }
 
 export const Iss = ({
@@ -17,20 +30,12 @@ export const Iss = ({
   earthSceneRadius = 2,
   orbitWindowMinutes = 90,
   orbitSampleSeconds = 15,
+  setIssInfo,
 }: IssProps) => {
   const { scene: issScene } = useGLTF(modelUrl) as any;
   const issRef = useRef<THREE.Object3D | null>(null);
 
   const { tleLoaded, satrec } = useIssTle();
-
-  // HUD
-  const [issInfo, setIssInfo] = useState({
-    lat: 0,
-    lon: 0,
-    altKm: 0,
-    speedKmh: 0,
-    positionKm: { x: 0, y: 0, z: 0 },
-  });
 
   // Earth constants & scale
   const R_EARTH_KM = 6371;
@@ -233,20 +238,6 @@ export const Iss = ({
       </group>
 
       {orbitGeomRef.current && (
-        // Alternative to primitive
-        // <line
-        //   geometry={orbitGeomRef.current}
-        //   frustumCulled={false}
-        //   renderOrder={1}
-        // >
-        //   <lineBasicMaterial
-        //     attach="material"
-        //     color={0x4a90e2}
-        //     transparent
-        //     opacity={0.95}
-        //     linewidth={2}
-        //   />
-        // </line>
         <primitive
           object={
             new THREE.Line(
@@ -263,33 +254,6 @@ export const Iss = ({
           renderOrder={1}
         />
       )}
-
-      <Html transform={false} sprite>
-        <HtmlOverlay {...issInfo} />
-      </Html>
     </>
-  );
-};
-
-// Small overlay rendered by React (not three-js).
-const HtmlOverlay = ({
-  lat,
-  lon,
-  altKm,
-  speedKmh,
-}: {
-  lat: number;
-  lon: number;
-  altKm: number;
-  speedKmh: number;
-}) => {
-  return (
-    <div className="absolute max-w-32 right-3 top-3 z-20 bg-black/55 text-white p-2 rounded-lg font-['Inter',Arial,sans-serif] text-xs leading-tight">
-      <div className="font-semibold">ISS — Real-time</div>
-      <div>Lat: {lat}°</div>
-      <div>Lon: {lon}°</div>
-      <div>Alt: {altKm} km</div>
-      <div>Speed: {speedKmh.toLocaleString()} km/h</div>
-    </div>
   );
 };

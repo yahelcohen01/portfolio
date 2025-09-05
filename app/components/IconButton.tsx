@@ -1,18 +1,18 @@
 type IconButtonProps = {
-  icon: React.ReactNode; // SVG component or element
-  onClick?: () => void; // click handler
-  size?: "sm" | "md" | "lg"; // optional size
-  className?: string; // extra classes
-  ariaLabel: string; // accessibility
+  icon: React.ReactNode;
+  onClick?: () => void;
+  size?: "sm" | "md" | "lg";
+  className?: string;
+  ariaLabel: string;
 };
 
-export const IconButton: React.FC<IconButtonProps> = ({
+export const IconButton = ({
   icon,
   onClick,
   size = "md",
   className = "",
   ariaLabel,
-}) => {
+}: IconButtonProps) => {
   // Tailwind size mapping
   const sizeClasses = {
     sm: "w-6 h-6",
