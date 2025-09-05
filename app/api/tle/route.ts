@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import fs from "fs/promises";
 import path from "path";
+import { getTextWithRevalidation } from "@/app/lib/axios";
 
 const CELESTRAK_URL =
   process.env.TLE_UPSTREAM_URL ||
@@ -11,24 +12,19 @@ const REVALIDATE_SECONDS = 60 * 60 * 2; // 2 hours
 export const runtime = "nodejs"; // ensures fs is available
 
 export async function GET() {
-  // Try upstream (letting Next cache/revalidate this fetch)
+  // Try upstream using axios with revalidation
 
   console.log("Fetching TLE data...");
   try {
-    const resp = await fetch(CELESTRAK_URL, {
-      next: { revalidate: REVALIDATE_SECONDS },
+    const text = await getTextWithRevalidation(
+      CELESTRAK_URL,
+      REVALIDATE_SECONDS
+    );
+    // Return the raw TLE file text
+    return new Response(text, {
+      status: 200,
+      headers: { "Content-Type": "text/plain; charset=utf-8" },
     });
-    if (resp.ok) {
-      const text = await resp.text();
-      // Return the raw TLE file text
-      return new Response(text, {
-        status: 200,
-        headers: { "Content-Type": "text/plain; charset=utf-8" },
-      });
-    } else {
-      // upstream returned non-OK (403/429/etc.)
-      console.warn("TLE upstream returned non-OK:", resp.status);
-    }
   } catch (err) {
     console.warn("TLE upstream fetch failed:", err);
   }

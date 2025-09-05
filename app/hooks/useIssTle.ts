@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import * as satellite from "satellite.js";
+import axiosInstance from "@/app/lib/axios";
 
 interface UseIssTleResult {
   tleLoaded: boolean;
@@ -84,9 +85,9 @@ export function useIssTle(): UseIssTleResult {
 
       // 1) API route
       try {
-        const res = await fetch(API_TLE_URL);
-        if (res.ok) {
-          parseAndSet(await res.text());
+        const res = await axiosInstance.get(API_TLE_URL);
+        if (res.status === 200) {
+          parseAndSet(res.data);
           return;
         }
       } catch (err) {
@@ -95,9 +96,9 @@ export function useIssTle(): UseIssTleResult {
 
       // 2) local file
       try {
-        const res2 = await fetch(LOCAL_TLE_URL);
-        if (res2.ok) {
-          parseAndSet(await res2.text());
+        const res2 = await axiosInstance.get(LOCAL_TLE_URL);
+        if (res2.status === 200) {
+          parseAndSet(res2.data);
           return;
         }
       } catch {}
