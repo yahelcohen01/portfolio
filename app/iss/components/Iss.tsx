@@ -159,7 +159,7 @@ export const Iss = ({
     recomputeOrbitPath();
     const id = window.setInterval(() => {
       recomputeOrbitPath();
-    }, 1000 * 30); // every 30s
+    }, 1000 * 1); // every 1s
     return () => clearInterval(id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tleLoaded, orbitWindowMinutes, orbitSampleSeconds]);
