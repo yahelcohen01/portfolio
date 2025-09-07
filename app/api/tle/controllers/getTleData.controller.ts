@@ -2,6 +2,7 @@ import { getTextWithRevalidation } from "@shared/lib";
 import { NextResponse } from "next/server";
 import path from "path";
 import fs from "fs/promises";
+import { logger } from "@shared/lib";
 
 const CELESTRAK_URL =
   process.env.TLE_UPSTREAM_URL ||
@@ -12,7 +13,8 @@ const REVALIDATE_SECONDS = 60 * 60 * 2; // 2 hours
 export const runtime = "nodejs"; // ensures fs is available
 
 export const getTleData = async () => {
-  console.log("Fetching TLE data...");
+  logger.info("Fetching TLE data...");
+
   try {
     const text = await getTextWithRevalidation({
       url: CELESTRAK_URL,
@@ -24,7 +26,7 @@ export const getTleData = async () => {
       headers: { "Content-Type": "text/plain; charset=utf-8" },
     });
   } catch (err) {
-    console.warn("TLE upstream fetch failed:", err);
+    logger.warn({ err }, "TLE fetch failed, attempting local fallback");
   }
 
   // Fallback: local file in public/tle/iss.txt
@@ -35,7 +37,7 @@ export const getTleData = async () => {
       headers: { "Content-Type": "text/plain; charset=utf-8" },
     });
   } catch (err) {
-    console.error("Local fallback TLE read failed:", err);
+    logger.error({ err }, "Local fallback TLE read failed");
   }
 
   // Last resort: 503

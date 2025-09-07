@@ -1,4 +1,5 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
+import { logger } from "./logger";
 
 // Create a global axios instance with default configuration
 const axiosInstance: AxiosInstance = axios.create({
@@ -13,14 +14,14 @@ axiosInstance.interceptors.request.use(
   (config) => {
     // Log request in development
     if (process.env.NODE_ENV === "development") {
-      console.log(
+      logger.info(
         `Making ${config.method?.toUpperCase()} request to: ${config.url}`
       );
     }
     return config;
   },
   (error) => {
-    console.error("Request interceptor error:", error);
+    logger.error("Request interceptor error:", error);
     return Promise.reject(error);
   }
 );
@@ -30,26 +31,35 @@ axiosInstance.interceptors.response.use(
   (response: AxiosResponse) => {
     // Log response in development
     if (process.env.NODE_ENV === "development") {
-      console.log(`Response from ${response.config.url}: ${response.status}`);
+      logger.info(
+        { ...response },
+        `Response from ${response.config.url}: ${response.status}`
+      );
     }
     return response;
   },
   (error) => {
     // Log error details
     if (error.response) {
-      console.error(`API Error ${error.response.status}:`, {
-        url: error.config?.url,
-        status: error.response.status,
-        statusText: error.response.statusText,
-        data: error.response.data,
-      });
+      logger.error(
+        {
+          url: error.config?.url,
+          status: error.response.status,
+          statusText: error.response.statusText,
+          data: error.response.data,
+        },
+        `API Error ${error.response.status}:`
+      );
     } else if (error.request) {
-      console.error("Network Error:", {
-        url: error.config?.url,
-        message: error.message,
-      });
+      logger.error(
+        {
+          url: error.config?.url,
+          message: error.message,
+        },
+        "Network Error:"
+      );
     } else {
-      console.error("Request Setup Error:", error.message);
+      logger.error("Request Setup Error:", error.message);
     }
     return Promise.reject(error);
   }
