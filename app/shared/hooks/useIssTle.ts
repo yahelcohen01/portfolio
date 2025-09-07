@@ -1,12 +1,20 @@
 import { useEffect, useRef, useState } from "react";
 import * as satellite from "satellite.js";
-import axiosInstance from "@/app/lib/axios";
+import axiosInstance from "@/app/shared/lib/axios";
 
 interface UseIssTleResult {
   tleLoaded: boolean;
   tleLines: string[] | null;
   satrec: satellite.SatRec | null;
 }
+
+const LOCAL_TLE_URL = "/tle/iss.txt"; // place a fallback file in /public/tle/iss.txt
+const API_TLE_URL = "/api/tle"; // Next.js API proxy endpoint
+const LOCAL_FALLBACK_TLE = [
+  "2 25544  51.6332 270.8228 0004213 301.3502  58.7074 15.50112942527561",
+  "1 25544U 98067A   25248.13333647  .00010878  00000+0  19750-3 0  9999",
+];
+const LOCALSTORAGE_KEY = "iss_tle_cached_v1";
 
 export function useIssTle(): UseIssTleResult {
   const [tleLoaded, setTleLoaded] = useState(false);
@@ -15,13 +23,6 @@ export function useIssTle(): UseIssTleResult {
 
   useEffect(() => {
     let mounted = true;
-    const LOCAL_TLE_URL = "/tle/iss.txt"; // place a fallback file in /public/tle/iss.txt
-    const API_TLE_URL = "/api/tle"; // Next.js API proxy endpoint
-    const LOCAL_FALLBACK_TLE = [
-      "2 25544  51.6332 270.8228 0004213 301.3502  58.7074 15.50112942527561",
-      "1 25544U 98067A   25248.13333647  .00010878  00000+0  19750-3 0  9999",
-    ];
-    const LOCALSTORAGE_KEY = "iss_tle_cached_v1";
 
     const saveCached = (lines: string[]) => {
       try {

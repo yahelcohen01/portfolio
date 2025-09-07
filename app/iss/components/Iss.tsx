@@ -3,26 +3,15 @@ import { useFrame } from "@react-three/fiber";
 import { useGLTF } from "@react-three/drei";
 import * as satellite from "satellite.js";
 import * as THREE from "three";
-import { useIssTle } from "@/app/hooks/useIssTle";
+import { useIssTle } from "@shared/hooks";
+import { SetState, IssInfo } from "@shared/types";
 
 interface IssProps {
   modelUrl?: string;
   earthSceneRadius?: number; // scene units (your Earth sphere radius, default 2)
   orbitWindowMinutes?: number; // how many minutes ahead to draw the path
   orbitSampleSeconds?: number; // sample step in seconds
-  setIssInfo: React.Dispatch<
-    React.SetStateAction<{
-      lat: number;
-      lon: number;
-      altKm: number;
-      speedKmh: number;
-      positionKm: {
-        x: number;
-        y: number;
-        z: number;
-      };
-    }>
-  >;
+  setIssInfo: SetState<IssInfo>;
 }
 
 export const Iss = ({

@@ -56,13 +56,19 @@ axiosInstance.interceptors.response.use(
 );
 
 // Helper function for GET requests with Next.js revalidation
-export const getWithRevalidation = async (
-  url: string,
-  revalidateSeconds?: number
-): Promise<AxiosResponse> => {
+export const get = async <TPayload, TResponse>({
+  url,
+  payload,
+  revalidateSeconds,
+}: {
+  url: string;
+  payload?: TPayload;
+  revalidateSeconds?: number;
+}): Promise<AxiosResponse<TResponse>> => {
   const config: AxiosRequestConfig = {
     method: "GET",
     url,
+    params: payload,
   };
 
   // Add Next.js revalidation if specified
@@ -73,15 +79,85 @@ export const getWithRevalidation = async (
     };
   }
 
-  return axiosInstance(config);
+  return axiosInstance<TResponse>(config);
+};
+
+// Helper function for POST requests with Next.js revalidation
+export const post = async <TData, TResponse>({
+  url,
+  data,
+  revalidateSeconds,
+}: {
+  url: string;
+  data?: TData;
+  revalidateSeconds?: number;
+}): Promise<AxiosResponse<TResponse>> => {
+  const config: AxiosRequestConfig = {
+    method: "POST",
+    url,
+    data,
+  };
+
+  // Add Next.js revalidation if specified
+  if (revalidateSeconds) {
+    config.headers = {
+      ...config.headers,
+      "Cache-Control": `max-age=${revalidateSeconds}`,
+    };
+  }
+
+  return axiosInstance<TResponse>(config);
+};
+
+// Helper function for PUT request
+export const put = async <TData, TResponse>({
+  url,
+  data,
+}: {
+  url: string;
+  data?: TData;
+}): Promise<AxiosResponse<TResponse>> => {
+  const config: AxiosRequestConfig = {
+    method: "PUT",
+    url,
+    data,
+  };
+
+  return axiosInstance<TResponse>(config);
+};
+
+// Helper function for DELETE request
+export const del = async <TPayload, TResponse>({
+  url,
+  payload,
+}: {
+  url: string;
+  payload?: TPayload;
+}): Promise<AxiosResponse<TResponse>> => {
+  const config: AxiosRequestConfig = {
+    method: "DELETE",
+    url,
+    params: payload,
+  };
+
+  return axiosInstance<TResponse>(config);
 };
 
 // Helper function for text responses
-export const getTextWithRevalidation = async (
-  url: string,
-  revalidateSeconds?: number
-): Promise<string> => {
-  const response = await getWithRevalidation(url, revalidateSeconds);
+export const getTextWithRevalidation = async <TPayload, T extends string>({
+  url,
+  payload,
+  revalidateSeconds,
+}: {
+  url: string;
+  payload?: TPayload;
+  revalidateSeconds?: number;
+}): Promise<T> => {
+  const response = await get<TPayload, T>({
+    url,
+    payload,
+    revalidateSeconds,
+  });
   return response.data;
 };
 

@@ -126,12 +126,15 @@ export const EarthScene = () => {
   });
 
   return (
-    <div className="w-full h-screen bg-black overflow-hidden relative">
+    <div className="w-full h-screen bg-black overflow-hidden">
       {/* UI Overlay */}
       <UIOverlay {...issInfo} />
 
       {/* 3D Canvas */}
-      <Canvas camera={{ position: [0, 0, 8], fov: 45 }}>
+      <Canvas
+        camera={{ position: [0, 0, 8], fov: 45 }}
+        className="w-full h-full"
+      >
         {/* Lighting Setup */}
         <SceneLighting />
 
