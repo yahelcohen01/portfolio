@@ -10,6 +10,13 @@ export const ProjectsSection = () => {
       keepTab: true,
     },
     {
+      title: "Portfolio Website (This Site)",
+      description:
+        "A personal portfolio website showcasing my projects, skills and interests, built with Next.js, TypeScript, and Tailwind CSS.",
+      link: "/",
+      keepTab: true,
+    },
+    {
       title: "Clash Royale AI Model",
       description:
         "AI-driven Clash Royale bot that autonomously plays and learns from games using reinforcement learning, implemented in Python with PyTorch, PyAutoGUI, and Roboflow, and containerized with Docker for streamlined deployment.",
