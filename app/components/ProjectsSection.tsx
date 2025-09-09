@@ -13,7 +13,7 @@ export const ProjectsSection = () => {
       title: "Clash Royale AI Model",
       description:
         "AI-driven Clash Royale bot that autonomously plays and learns from games using reinforcement learning, implemented in Python with PyTorch, PyAutoGUI, and Roboflow, and containerized with Docker for streamlined deployment.",
-      link: "https://github.com/yahelcohen01/CRBot-public",
+      link: "https://github.com/yahelcohen01/clash-royale-ai",
     },
     {
       title: "Qubit",

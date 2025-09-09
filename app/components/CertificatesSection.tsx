@@ -26,6 +26,7 @@ export const CertificatesSection = () => {
                   <h4 className="text-md font-medium text-gray-900 dark:text-gray-100">
                     <a
                       href="https://www.magshimim.cyber.org.il/"
+                      target="_blank"
                       className="hover:text-gray-700 flex dark:hover:text-gray-300"
                     >
                       {cert.title}
