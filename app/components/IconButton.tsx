@@ -13,7 +13,6 @@ export const IconButton = ({
   className = "",
   ariaLabel,
 }: IconButtonProps) => {
-  // Tailwind size mapping
   const sizeClasses = {
     sm: "w-6 h-6",
     md: "w-8 h-8",

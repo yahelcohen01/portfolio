@@ -8,7 +8,6 @@ export function ToggleThemeButton() {
       onClick={toggleTheme}
       className="fixed top-5 left-5 flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 shadow-lg transition hover:scale-105 dark:bg-stone-900"
     >
-      {/* Moon icon */}
       <svg
         xmlns="http://www.w3.org/2000/svg"
         className={`absolute h-6 w-6 text-gray-700 transition-transform duration-500 dark:text-gray-200 ${
@@ -24,7 +23,6 @@ export function ToggleThemeButton() {
         />
       </svg>
 
-      {/* Sun icon */}
       <svg
         xmlns="http://www.w3.org/2000/svg"
         className={`absolute h-6 w-6 text-yellow-500 transition-transform duration-500 ${

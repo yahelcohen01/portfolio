@@ -100,7 +100,6 @@ export const ProfileSection = () => {
             <span className="text-sm">Tel Aviv, Israel</span>
           </div>
 
-          {/* Social Links */}
           <div className="flex items-center justify-center space-x-4 pt-2">
             <a
               href="https://github.com/yahelcohen01"
@@ -134,7 +133,6 @@ export const ProfileSection = () => {
             </a>
           </div>
 
-          {/* Download Resume */}
           <div className="flex items-center justify-center space-x-4 pt-2">
             <a
               href="/yahel-cohen--resume.pdf"

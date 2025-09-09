@@ -2,7 +2,6 @@ import { useLoader } from "@react-three/fiber";
 import { useRef, useMemo } from "react";
 import * as THREE from "three";
 
-// Earth Component
 interface EarthProps {
   textureUrl?: string;
 }
@@ -12,10 +11,8 @@ export const Earth = ({
 }: EarthProps) => {
   const meshRef = useRef<THREE.Mesh>(null);
 
-  // Load the earth texture
   const earthTexture = useLoader(THREE.TextureLoader, textureUrl);
 
-  // Create earth material
   const earthMaterial = useMemo(() => {
     return new THREE.MeshPhongMaterial({
       map: earthTexture,

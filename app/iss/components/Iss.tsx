@@ -4,14 +4,13 @@ import { useGLTF } from "@react-three/drei";
 import * as satellite from "satellite.js";
 import * as THREE from "three";
 import { useIssTle } from "@shared/hooks";
-import { SetState, IssInfo } from "@shared/types";
+import { useIssStore } from "../stores/iss.store";
 
 interface IssProps {
   modelUrl?: string;
   earthSceneRadius?: number; // scene units (your Earth sphere radius, default 2)
   orbitWindowMinutes?: number; // how many minutes ahead to draw the path
   orbitSampleSeconds?: number; // sample step in seconds
-  setIssInfo: SetState<IssInfo>;
 }
 
 export const Iss = ({
@@ -19,26 +18,21 @@ export const Iss = ({
   earthSceneRadius = 2,
   orbitWindowMinutes = 90,
   orbitSampleSeconds = 15,
-  setIssInfo,
 }: IssProps) => {
+  console.log("Rendering ISS");
   const { scene: issScene } = useGLTF(modelUrl) as any;
   const issRef = useRef<THREE.Object3D | null>(null);
 
   const { tleLoaded, satrec } = useIssTle();
 
-  // Earth constants & scale
   const R_EARTH_KM = 6371;
   const scale = earthSceneRadius / R_EARTH_KM;
 
-  // satrec (parsed TLE)
-
-  // Orbit geometry refs
   const orbitGeomRef = useRef<THREE.BufferGeometry | null>(null);
   const orbitPositionsRef = useRef<Float32Array | null>(null);
-  //   const orbitLineRef = useRef<THREE.Line | null>(null);
   const orbitSampleCountRef = useRef<number>(0);
 
-  // init orbit geometry once
+  // init orbit geometry
   useEffect(() => {
     const windowSeconds = orbitWindowMinutes * 60;
     const samples = Math.ceil(windowSeconds / orbitSampleSeconds) + 1;
@@ -50,11 +44,9 @@ export const Iss = ({
     const geom = new THREE.BufferGeometry();
     geom.setAttribute("position", new THREE.BufferAttribute(positions, 3));
     geom.setDrawRange(0, 0);
-    // computeBoundingSphere later when we have valid positions
     orbitGeomRef.current = geom;
   }, [orbitWindowMinutes, orbitSampleSeconds]);
 
-  // recompute orbit path function (NaN-safe)
   const recomputeOrbitPath = () => {
     const geom = orbitGeomRef.current;
     const positions = orbitPositionsRef.current;
@@ -150,7 +142,6 @@ export const Iss = ({
       recomputeOrbitPath();
     }, 1000 * 1); // every 1s
     return () => clearInterval(id);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tleLoaded, orbitWindowMinutes, orbitSampleSeconds]);
 
   // Live update ISS position each frame
@@ -210,16 +201,19 @@ export const Iss = ({
       issRef.current.quaternion.copy(q);
     }
 
-    setIssInfo({
-      lat: Number(latDeg.toFixed(4)),
-      lon: Number(lonDeg.toFixed(4)),
-      altKm: Number(altKm.toFixed(2)),
-      speedKmh: Number(speedKmh.toFixed(1)),
-      positionKm: { x: posEcf.x, y: posEcf.y, z: posEcf.z },
+    useIssStore.getState().setInfo({
+      lat: latDeg,
+      lon: lonDeg,
+      altKm,
+      speedKmh,
+      positionKm: {
+        x: posEcf.x,
+        y: posEcf.y,
+        z: posEcf.z,
+      },
     });
   });
 
-  // Render model + orbit line; cast ref to any to avoid SVG-Ref confusion in TSX
   return (
     <>
       <group ref={issRef} scale={[0.002, 0.002, 0.002]}>

@@ -2,11 +2,11 @@ import { Canvas } from "@react-three/fiber";
 import { Html, OrbitControls, Stars, useProgress } from "@react-three/drei";
 import { Iss } from "./Iss";
 import { Earth } from "./Earth";
-import { Suspense, useState } from "react";
+import { Suspense } from "react";
 import Link from "next/link";
 import Breadcrumbs from "@/app/components/Breadcrumbs";
+import { useIssStore } from "../stores/iss.store";
 
-// Lighting Setup Component
 const SceneLighting = () => {
   return (
     <>
@@ -17,7 +17,6 @@ const SceneLighting = () => {
   );
 };
 
-// Stars Background Component
 const SpaceBackground = () => {
   return (
     <Stars
@@ -31,7 +30,6 @@ const SpaceBackground = () => {
   );
 };
 
-// Camera Controls Component
 const CameraControls = () => {
   return (
     <OrbitControls
@@ -47,21 +45,11 @@ const CameraControls = () => {
   );
 };
 
-// UI Overlay Component
-const UIOverlay = (issData: {
-  lat: number;
-  lon: number;
-  altKm: number;
-  speedKmh: number;
-  positionKm: {
-    x: number;
-    y: number;
-    z: number;
-  };
-}) => {
+const UIOverlay = () => {
+  const issData = useIssStore((state) => state.info);
+
   return (
     <>
-      {/* Header */}
       <div className="absolute top-0 left-0 z-10 p-4 md:p-6 w-full bg-black/30 backdrop-blur-sm flex justify-between items-center">
         <div>
           <Breadcrumbs autoGenerate showHomeIcon={false} />
@@ -82,7 +70,6 @@ const UIOverlay = (issData: {
         </Link>
       </div>
 
-      {/* Controls Info */}
       <div className="absolute bottom-0 left-0 z-10 p-4 md:p-6 w-full bg-black/30 backdrop-blur-sm">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-xs md:text-sm font-mono">
           <p>
@@ -115,43 +102,27 @@ function Loader() {
   );
 }
 
-// Main Scene Component
 export const EarthScene = () => {
-  const [issInfo, setIssInfo] = useState({
-    lat: 0,
-    lon: 0,
-    altKm: 0,
-    speedKmh: 0,
-    positionKm: { x: 0, y: 0, z: 0 },
-  });
-
   return (
     <div className="w-full h-screen bg-black overflow-hidden">
-      {/* UI Overlay */}
-      <UIOverlay {...issInfo} />
+      <UIOverlay />
 
-      {/* 3D Canvas */}
       <Canvas
         camera={{ position: [0, 0, 8], fov: 45 }}
         className="w-full h-full"
       >
-        {/* Lighting Setup */}
         <SceneLighting />
 
-        {/* Space Background */}
         <SpaceBackground />
 
         <Suspense fallback={<Loader />}>
-          {/* Earth */}
           <Earth />
         </Suspense>
 
         <Suspense fallback={<Loader />}>
-          {/* Orbiting 3D Model */}
-          <Iss setIssInfo={setIssInfo} />
+          <Iss />
         </Suspense>
 
-        {/* Camera Controls */}
         <CameraControls />
       </Canvas>
     </div>
